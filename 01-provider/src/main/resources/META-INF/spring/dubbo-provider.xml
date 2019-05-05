@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="01-provider"/>
+
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
+
+    <bean id="userService" class="com.hai.wei.service.UserServiceImpl"/>
+    <!--
+        限流:
+            connections: 限制长连接个数
+            actives:    限制长连接处理请求个数
+    -->
+    <dubbo:service interface="com.hai.wei.api.IUserService" ref="userService" connections="10" actives="10"/>
+</beans>
